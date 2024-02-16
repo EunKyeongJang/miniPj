@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Random;
 
 
 @org.springframework.stereotype.Controller
 public class Controller {
 
-    public static Map<Integer, InfoDto> mainMap=new HashMap<>();
+    public static Map<String, InfoDto> mainMap=new HashMap<>();
 
     //리스트 불러오기
     @GetMapping("/parcel/list")
@@ -38,18 +38,28 @@ public class Controller {
 
     @PostMapping("/parcel/insert")
     public String insert(InfoDto infoDto, MainDto mainDto){
+        Random random=new Random();
+        String invoice="";
+        int a;
+
+        for(int i=0; i<11; i++){
+            a=random.nextInt(9);
+            invoice+=Integer.toString(a);
+        }
+        System.out.println("invoice = " + invoice);
+
         System.out.println("Controller.insert");
         System.out.println("infoDto = " + infoDto);
         System.out.println("mainDto = "+ mainDto);
 
-        mainMap.put(mainDto.getInvoice(),infoDto);
+        mainMap.put(invoice,infoDto);
         System.out.println("mainMap = " + mainMap);
 
         return "redirect:/parcel/list";
     }//m end
 
     @GetMapping("/parcel/{invoice}/delete")
-    public String delete(@PathVariable int invoice){
+    public String delete(@PathVariable String invoice){
         System.out.println("Controller.delete");
         mainMap.remove(invoice);
 

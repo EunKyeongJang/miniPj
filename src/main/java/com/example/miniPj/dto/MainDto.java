@@ -8,6 +8,6 @@ import lombok.*;
 @Setter
 @ToString
 public class MainDto {
-    private int invoice;
+    private String invoice;
     private InfoDto infoDto;
 }//c end
